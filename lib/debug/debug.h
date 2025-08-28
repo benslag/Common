@@ -9,14 +9,14 @@
 // WARNING (fmt, ...)  logs a warning message, ...
 // ERROR   (fmt, ...)  logs an error message, ...
 //
-// Note that if _D is 0, the arguments of any of the macros are NOT evaluated.
+// Note that if _DEBUG is 0, the arguments of any of the macros are NOT evaluated.
 //   e.g. LOG ("The value of i = %d\n", i++);
 //   If _LOG is defined as 0, i is NOT increased.
 //
 // Macro toCCP (x) can be used to print the value of a boolean.
 //   e.g. LOG ("Boolean x = %s\n", toCCP (x));
 //   prints either "Boolean x = true" or "Boolean x = false"
-//   (note: CCP is const char ptr)
+//   (note: CCP is Const Char Ptr)
 // 
 // BSla, 10 october 2023
 //       31 october 2024 Add multi-level, multi output channel. Decouple from Serial.print
@@ -24,7 +24,7 @@
 #ifndef __DEBUG_H
 #define __DEBUG_H
 
-#ifndef _DEBUG
+#ifndef _DEBUG      // to avoid DEBUG expansion, explicitly #define _DEBUG as 0
 #define _DEBUG 1
 #endif
 
@@ -54,8 +54,6 @@ extern const char* toCCP (bool b);
 #elif _DEBUG == 0
 #define DEBUG(...) {}
 #define LOG(...) {}
-#else
-#error Debug.h: _DEBUG is not defined as 0 or 1
 #endif  // if _DEBUG==1
 
 #endif  // __DEBUG_H
