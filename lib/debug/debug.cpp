@@ -29,7 +29,8 @@ void DebugSetLevel(int level)
    //  loglevels are from 0..10:
    //  0 = ERROR
    //  1 = WARNING
-   //  2..10 = LOG, decreasing level of importance
+   //  2 = NOTE
+   //  3..10 = LOG, decreasing level of importance
 }
 
 static void myPrint(const char *buffer)
