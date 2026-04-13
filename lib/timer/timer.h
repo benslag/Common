@@ -14,20 +14,22 @@
 
 typedef uint32_t timeType;
 
-#define TICKS_PER_SECOND (1000UL) // we are using millis () to count ticks
+#define TICKS_PER_SECOND 1000UL // we are using millis () to count ticks
 
 // Macros to express time intervals
-// e.g. time = 10 SECONDS;
-#define MILLISECONDS *TICKS_PER_SECOND / 1000UL
-#define MILLISECOND MILLISECONDS
-#define SECONDS *TICKS_PER_SECOND
-#define SECOND SECONDS
-#define MINUTES *60UL SECONDS
-#define MINUTE MINUTES
-#define HOURS *60UL MINUTES
-#define HOUR HOURS
-#define DAYS *24UL HOURS
-#define DAY DAYS
+// e.g. 'time = 10 SECONDS';
+
+#define SECONDS            *TICKS_PER_SECOND
+#define MILLISECONDS       SECONDS / 1000UL
+#define MINUTES            *60UL SECONDS
+#define HOURS              *60UL MINUTES
+#define DAYS               *24UL HOURS
+
+#define MILLISECOND        MILLISECONDS
+#define SECOND             SECONDS
+#define MINUTE             MINUTES
+#define HOUR               HOURS
+#define DAY                DAYS
 
 //-------------------
 // Class Timer implements interval timers.
