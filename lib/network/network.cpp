@@ -162,7 +162,7 @@ void Network::bringUp (bool verbose)
          break;
 
        case LinkComingUp:
-         if ((r = linkIsUp (verbose))) linkState = LinkUp;
+         if ((r = linkIsUp (false))) linkState = LinkUp;
          break;
 
        case LinkUp:
@@ -178,6 +178,7 @@ void Network::bringUp (bool verbose)
       }
       if (!r) delay (5 SECONDS); // wait a bit before retrying
    }
+   LOG ("\n");
 
    if (startupTimer.hasExpired ()) {
       LOG ("   Network::bringUp: startup timer expired; state = %s\n", ls2str (linkState));

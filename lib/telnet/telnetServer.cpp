@@ -2,10 +2,16 @@
 // telnetServer.cpp -- telnet server for debugger
 //
 // BSla, 18 jun 2026
+//
 #include <Arduino.h>
-#include <ETH.h>
+#include <WiFi.h>
 #include "hsi.h"
-#define _DEBUG 1
+
+#ifndef TELNET_DEBUG
+#define TELNET_DEBUG 0
+#endif
+
+#define _DEBUG TELNET_DEBUG
 #include "debug.h"
 #include "telnetServer.h"
 
