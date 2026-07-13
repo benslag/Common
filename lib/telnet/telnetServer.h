@@ -10,6 +10,8 @@ class Telnet {
 public:
    void setup ();
    void loop ();
+private:
+   bool justConnected = false;
 };
 
 extern Telnet telnet;

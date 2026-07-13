@@ -11,7 +11,9 @@
 
 
 #include <Arduino.h>
+#ifdef NETWORK_USING_WIFI
 #include <WiFiManager.h>
+#endif
 #include <WiFiClient.h>
 #include "timer.h" 
 
@@ -32,11 +34,14 @@ class Network {
    const char *getHostname () const { return hostname.c_str (); }
    void setConnected (bool connected) { ethConnected = connected; }
    bool isConnected () { return (linkState == LinkUp); }
+   String getOwnIPString () {return ip;}
 
  private:
    String hostname;
    String ssid;
    String password;
+   String mac;
+   String ip;
    bool   useWiFiManager = false;
    LinkState linkState;
    bool   linkWasUp = false;
@@ -44,7 +49,9 @@ class Network {
    bool   rebootAllowed = false;
    bool   rebootPending = false;
    String rebootReason;
+   #ifdef NETWORK_USING_WIFI
    WiFiManager wm;
+   #endif
    Timer  startupTimer;
    uint32_t checkCount;
    bool   ethConnected = false; 

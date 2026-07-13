@@ -26,7 +26,7 @@ static bool doReport = true;
 // format hh:mm:ss.mmm:  ss is seconds, mmm is milliseconds
 // Is used by debugPrinter to show current time in seconds since startup
 //
-static String timeString ()
+String mainTimeString ()
 {
    uint32_t now = millis();
    int ms  = now % 1000;
@@ -40,8 +40,6 @@ static String timeString ()
    return String(buffer);
 }
 
-
-
 // 
 // print a timestamp and the log buffer to the serial port. This function is
 // installed as the debug printer in setup() and is called by the debug module whenever a debug message is printed.
@@ -52,11 +50,9 @@ static void myDebugPrinter(const char *buffer)
    int l = strlen (buffer);
    if (l > 0) {
       if (lastWasNL) {
-         Serial .print (timeString()); Serial .print (buffer);
+         Serial .print (mainTimeString());
       }
-      else {
-         Serial .print (buffer);
-      }
+      Serial .print (buffer);
       lastWasNL = (buffer [l-1] == '\n');
    }
    else lastWasNL = false;
@@ -100,7 +96,7 @@ void mainReportLoopTime (bool report)
 static void loopTime()
 {
 #if _DEBUG == 1
-   static int uptime = 0;
+   static int uptime = 1;
    static int loopCount = 0;
    static uint32_t maximumTime = 0;
    static Timer reportTimer(1 MINUTE);

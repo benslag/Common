@@ -25,11 +25,13 @@ const int  daylightOffsetSec = 3600;
 static bool isDST (bool currentDST, struct tm &tm) 
 {
    bool dst    = false;
-   int month   = tm.tm_mon;
+   int month   = tm.tm_mon+1;
    int day     = tm.tm_mday;
    int hour    = tm.tm_hour;
    int weekday = tm.tm_wday;
    int dstSwitchHour = currentDST?3:2; // at which hour do we switch
+
+   LOG (">  Wallclock::isDST \n");
 
    // DST starts: Last Sunday of March at 2:00 AM
    if (month > 3 && month < 10) {
@@ -71,6 +73,7 @@ static bool isDST (bool currentDST, struct tm &tm)
          }
       }
    }
+   LOG ("<  Wallclock::isDST = %s\n", toCCP (dst));
    return dst;
 }
 
@@ -194,6 +197,7 @@ String Wallclock::strfTime (const struct tm &tm, const char *format, bool dutch,
 
 bool Wallclock::getLocalTime (struct tm &tm)
 {
+    //LOG (">  Wallclock::getLocalTime ()");
     if (!setupDone) {
         setup ();
     }

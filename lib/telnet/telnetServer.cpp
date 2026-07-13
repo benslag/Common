@@ -15,15 +15,25 @@
 #include "debug.h"
 #include "telnetServer.h"
 
+extern String mainTimeString ();
+
 Telnet telnet;
 WiFiServer telnetServer (23);
 WiFiClient telnetClient;
 
-static bool justConnected = false;
-
 static void telnetDebugPrinter (const char *buffer)
 {
-    if (telnetClient && telnetClient.connected ()) telnetClient.print (buffer);
+   if (telnetClient && telnetClient.connected ()) {
+      static bool lastWasNL = true;
+      int l = strlen (buffer);
+      if (l > 0) {
+         if (lastWasNL) {
+            telnetClient.print (mainTimeString ());
+         }
+         telnetClient.print (buffer);
+      }
+      lastWasNL = (buffer [l-1] == '\n');
+   }
 }
 
 
